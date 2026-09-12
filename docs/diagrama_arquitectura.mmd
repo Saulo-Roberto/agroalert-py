@@ -1,0 +1,36 @@
+flowchart LR
+    S[Sensor / Productor] --> QIN[(Artemis Queue<br/>agroalert.eventos)]
+    QIN --> CAMEL[Apache Camel<br/>AgroAlertRoute]
+    CAMEL --> TR[Message Translator<br/>JSON -> EventoSensor]
+    TR --> ID[Idempotent Receiver]
+    ID --> DB[(PostgreSQL<br/>sensor_event / alert)]
+    ID --> FIL{Message Filter<br/>valor < 10 o > 45}
+    FIL -->|Extremo| QEXT[(eventos.extremos)]
+    FIL --> CBR{Content-Based Router}
+    CBR -->|Humedad < 20| CRIT[CRITICA]
+    CBR -->|Temperatura > 35| HIGH[ALTA]
+    CBR -->|Otro| QN[(eventos.normales)]
+
+    CRIT --> RL1[Recipient List<br/>email + sms]
+    HIGH --> RL2[Recipient List<br/>email]
+    RL1 --> QE[(notificacion.email)]
+    RL1 --> QS[(notificacion.sms)]
+    RL2 --> QE
+
+    CRIT --> WT1[Wire Tap]
+    HIGH --> WT2[Wire Tap]
+    WT1 --> QA[(auditoria)]
+    WT2 --> QA
+
+    CRIT --> QC[(alertas.criticas)]
+    HIGH --> QH[(alertas)]
+
+    CRIT --> TOP[(Topic<br/>agroalert.notificaciones)]
+    HIGH --> TOP
+    TOP --> MON[Suscriptor Monitoreo]
+    TOP --> AUD[Suscriptor Auditoria]
+
+    CAMEL -. error .-> DLQ[(agroalert.dlq)]
+
+    HTTP[Cliente HTTP] --> JETTY[Jetty / Camel<br/>GET /agroalert/estado]
+    JETTY --> HTTP

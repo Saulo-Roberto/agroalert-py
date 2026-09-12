@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'py.edu.agroalert'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+ext {
+    camelVersion = '4.14.2'
+}
+
+dependencies {
+    implementation platform("org.apache.camel:camel-bom:${camelVersion}")
+
+    implementation 'org.apache.camel:camel-core'
+    implementation 'org.apache.camel:camel-main'
+    implementation 'org.apache.camel:camel-platform-http'
+    implementation 'org.apache.camel:camel-jackson'
+    implementation 'org.apache.camel:camel-jms'
+    implementation 'org.apache.camel:camel-sql'
+    implementation 'org.apache.camel:camel-jetty'
+
+    implementation 'org.apache.activemq:artemis-jakarta-client:2.40.0'
+
+    implementation 'org.postgresql:postgresql:42.7.7'
+
+    implementation 'org.slf4j:slf4j-simple:2.0.17'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+}
+
+application {
+    mainClass = 'py.edu.agroalert.Main'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

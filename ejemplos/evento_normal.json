@@ -1,0 +1,9 @@
+{
+  "event_id": "EVT-010",
+  "sensor_id": "SEN-14",
+  "parcela_id": "PAR-27",
+  "tipo": "TEMPERATURA",
+  "valor": 25.0,
+  "unidad": "C",
+  "timestamp": "2026-09-11T00:05:00"
+}

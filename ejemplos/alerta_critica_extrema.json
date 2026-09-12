@@ -1,0 +1,9 @@
+{
+  "event_id": "EVT-014",
+  "sensor_id": "SEN-18",
+  "parcela_id": "PAR-31",
+  "tipo": "HUMEDAD_SUELO",
+  "valor": 8.5,
+  "unidad": "%",
+  "timestamp": "2026-09-11T23:40:00"
+}

@@ -1,0 +1,9 @@
+{
+  "event_id": "EVT-009",
+  "sensor_id": "SEN-13",
+  "parcela_id": "PAR-26",
+  "tipo": "TEMPERATURA",
+  "valor": "INVALIDO",
+  "unidad": "C",
+  "timestamp": "2026-09-10T23:59:30"
+}

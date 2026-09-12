@@ -1,0 +1,39 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: agroalert-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: agroalert
+      POSTGRES_USER: agroalert
+      POSTGRES_PASSWORD: agroalert123
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+
+  artemis:
+    image: apache/activemq-artemis:latest
+    container_name: agroalert-artemis
+    restart: unless-stopped
+
+    environment:
+      ARTEMIS_USER: admin
+      ARTEMIS_PASSWORD: admin123
+
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+
+    volumes:
+      - artemis-data:/var/lib/artemis-instance
+
+
+volumes:
+  postgres-data:
+  artemis-data:
