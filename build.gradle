@@ -47,3 +47,8 @@ application {
 tasks.named('test') {
     useJUnitPlatform()
 }
+jar {
+    manifest {
+        attributes 'Main-Class': 'py.edu.agroalert.Main'
+    }
+}

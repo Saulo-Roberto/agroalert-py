@@ -11,6 +11,7 @@ out/
 
 *.class
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.log
 
 .DS_Store
@@ -18,3 +19,8 @@ Thumbs.db
 
 *.tmp
 *.temp
+
+# Distribuciones de Gradle descargadas manualmente (usar siempre gradlew / gradlew.bat)
+gradle-*/
+gradle.zip
+*.zip
